@@ -7,6 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   config.vm.box = 'dummy'
+  config.vm.synced_folder '.', '/vagrant', :disabled => true
 
   config.vm.provider :aws do |aws, override|
     
@@ -18,11 +19,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #aws.associate_public_ip = true
     #aws.subnet_id = '' #public subnet of your VPC
     
-    aws.security_groups = ''
-    aws.region = ''
+    aws.security_groups = 'launch-wizard-1'
+    aws.region = 'us-east-1'
 
-    aws.ami = 'ami-896c96fe'
-    aws.instance_type = 't1.micro'
+    aws.ami = 'ami-d05e75b8'
+    aws.instance_type = 't2.micro'
 
     override.ssh.username = ENV['AWS_SSH_USER']
     override.ssh.private_key_path = ENV['AWS_KEY_PATH']
@@ -30,7 +31,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision 'ansible' do |ansible|
-    ansible.playbook = 'build/playbook.yml'
+    ansible.playbook = 'playbook.yml'
     ansible.verbose = 'vv'
   end
 
