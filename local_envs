@@ -5,6 +5,7 @@ echo "Exporting Ansible specific variables"
 echo "Exporting environment variables for AWS"
 export AWS_ACCESS_KEY_ID=''
 export AWS_SECRET_ACCESS_KEY=''
+export AWS_IAM_INSTANCE_PROFILE_ARN=''
 export AWS_KEYPAIR_NAME=''
 export AWS_KEY_PATH=''
 export AWS_SSH_USER=''
