@@ -2,6 +2,12 @@
 
 - name: Restart application
   supervisorctl: name={{ application_name }} state=restarted
+  notify: Turn off maintenance
+  tags: 
+    - deploy
+
+- name: Turn off maintenance
+  command: mv {{ virtualenv_path }}/maintenance_on.html {{ virtualenv_path }}/maintenance_off.html
   tags: 
     - deploy
 

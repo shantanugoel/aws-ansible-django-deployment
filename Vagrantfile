@@ -24,6 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     aws.ami = 'ami-d05e75b8'
     aws.instance_type = 't2.micro'
+    aws.iam_instance_profile_arn = ''
 
     override.ssh.username = ENV['AWS_SSH_USER']
     override.ssh.private_key_path = ENV['AWS_KEY_PATH']

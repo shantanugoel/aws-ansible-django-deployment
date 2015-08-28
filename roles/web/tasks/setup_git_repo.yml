@@ -34,3 +34,12 @@
   tags: 
     - git 
     - deploy
+
+- name: Delete all .pyc files
+  command: find . -name '*.pyc' -delete
+  args:
+    chdir: "{{ git_root }}"
+  tags: 
+    - git
+    - deploy
+

@@ -31,7 +31,7 @@
   tags: rds
 
 - name: Checking RDS endpoint status
-  debug: msg="Endpoint:{{rds_info.instance.endpoint}}"
+  debug: msg="Endpoint:{{rds_info.instance.endpoint}} {{rds_info.instance.port}}"
   tags: rds
 
 - name: Install Postgres client components

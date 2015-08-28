@@ -7,3 +7,6 @@
         group={{ gunicorn_group }}
         state=directory
   notify: Restart application
+  tags: 
+    - django
+    - deploy

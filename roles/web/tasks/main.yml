@@ -6,6 +6,8 @@
 
 - include: setup_venv_and_logs.yml
 
+- include: prolog_deploy.yml
+
 - include: setup_git_repo.yml
 
 - include: setup_supervisor.yml

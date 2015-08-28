@@ -7,6 +7,8 @@ export DB_PASSWORD='{{ db_password }}'
 export DJANGO_SETTINGS_MODULE='{{ django_settings_file }}'
 {% if rds_info is defined %}
 export DB_HOST='{{ rds_info.instance.endpoint }}'
+export DB_PORT='{{ rds_info.instance.port }}'
 {% else %} 
 export DB_HOST='{{ db_host | default("", true) }}'
+export DB_PORT='{{ db_port | default("", true) }}'
 {% endif %}
