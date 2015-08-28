@@ -1,7 +1,34 @@
 ---
 
+- name: Create the ssh dir
+  file: path='/home/{{ application_user }}/.ssh'
+        mode=0700
+        state=directory
+        owner={{application_user}}
+        group={{application_group}}
+  tags: 
+    - git 
+
+- name: Create the Bitbucket SSH public key file
+  copy: src='~/.ssh/{{git_key_pub}}'
+        dest='/home/{{ application_user }}/.ssh/id_rsa_git.pub'
+        mode=0644
+        owner={{application_user}}
+        group={{application_group}}
+  tags: 
+    - git 
+
+- name: Create the Bitbucket SSH private key file
+  copy: src='~/.ssh/{{git_key_pvt}}'
+        dest='/home/{{ application_user }}/.ssh/id_rsa_git'
+        mode=0600
+        owner={{application_user}}
+        group={{application_group}}
+  tags: 
+    - git 
+
 - name: Setup/pull the Git repo
-  git: repo={{ git_repo }} dest={{ git_root }} update=yes accept_hostkey=yes
+  git: repo={{ git_repo }} dest={{ git_root }} update=yes accept_hostkey=yes key_file='/home/{{ application_user }}/.ssh/id_rsa_git'
   when: setup_git_repo
   #notify: Restart application
   tags: 
