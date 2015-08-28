@@ -1,0 +1,25 @@
+---
+
+- name: Install base packages
+  apt: name={{ item }} update_cache={{ update_apt_cache }} force=yes state=installed
+  with_items:
+    - python
+    - python-dev
+    - python-boto
+  tags: packages
+        s3
+
+- name: Create an s3 bucket
+  s3: >
+      mode=create
+      bucket='{{ application_name }}-{{1000|random}}-{{1000|random}}'
+      region={{ s3_region}}
+      aws_access_key="{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+      aws_secret_key="{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+  register: s3_info
+  tags: s3
+
+- name: Checking S3 endpoint status
+  debug: msg="Endpoint:{{s3_info.instance.endpoint}}"
+  tags: s3
+
