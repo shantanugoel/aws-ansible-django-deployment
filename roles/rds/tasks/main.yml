@@ -1,5 +1,13 @@
 ---
 
+- name: Install base packages
+  apt: name={{ item }} update_cache={{ update_apt_cache }} force=yes state=installed
+  with_items:
+    - python
+    - python-dev
+    - python-boto
+  tags: packages
+
 - name: Create a RDS instance
   rds: >
       command=create
@@ -30,7 +38,6 @@
   apt: name={{ item }} update_cache={{ update_apt_cache }} state=installed
   with_items:
     - libpq-dev
-    - python-psycopg2
     - postgresql-client-common
     - postgresql-client-9.3
   tags: 
