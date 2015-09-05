@@ -22,6 +22,10 @@ server {
     access_log {{ nginx_access_log_file }};
     error_log {{ nginx_error_log_file }};
 
+    if ($host !~* ^({{ nginx_server_name }})$ ) {
+        return 444;
+    }
+
     location /static/ {
         alias   {{ nginx_static_dir }};
         expires 1d;
