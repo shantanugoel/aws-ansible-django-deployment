@@ -7,11 +7,11 @@ upstream wsgi_server_{{ application_name }} {
 }
 
 # Redirect from www.
-#server {
-#    listen 80;
-#    server_name www.{{ nginx_server_name }};
-#    return 301 http://{{ nginx_server_name }}$request_uri;
-#}
+server {
+    listen 80;
+    server_name www.{{ nginx_server_name }};
+    return 301 http://{{ nginx_server_name }}$request_uri;
+}
 
 server {
     listen      80;
@@ -46,7 +46,7 @@ server {
  
         # pass the Host: header from the client right along so redirects 
         # can be set properly within the Rack application
-        proxy_set_header Host $http_host;
+        proxy_set_header Host $host;
  
         # we don't want nginx trying to do something clever with
         # redirects, we set the Host: header above already.
